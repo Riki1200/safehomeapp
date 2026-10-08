@@ -1,0 +1,37 @@
+/*
+ *
+ *  *
+ *  *  * Copyright (c) 2026
+ *  *  *
+ *  *  * Author: Athar Gul
+ *  *  * GitHub: https://github.com/DevAtrii/Kmp-Starter-Template
+ *  *  * YouTube: https://www.youtube.com/@devatrii/videos
+ *  *  *
+ *  *  * All rights reserved.
+ *  *
+ *  *
+ *
+ */
+
+package com.romeodev.safehomeapp.feature_notifications_push
+
+import com.romeodev.safehomeapp.feature_notifications_core.createAlarmeePlatformConfiguration
+import com.tweener.alarmee.MobileAlarmeeService
+import com.tweener.alarmee.createAlarmeeMobileService
+import org.koin.dsl.module
+
+val notificationsPushModule = module {
+    single {
+        val alarmeeService = createAlarmeeMobileService()
+        alarmeeService.initialize(
+            platformConfiguration = createAlarmeePlatformConfiguration(),
+        )
+
+        alarmeeService
+    }
+
+    single {
+        val alarmeeService = get<MobileAlarmeeService>()
+        alarmeeService.push
+    }
+}

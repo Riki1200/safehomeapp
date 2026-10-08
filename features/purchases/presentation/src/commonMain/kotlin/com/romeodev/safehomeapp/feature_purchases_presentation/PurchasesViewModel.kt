@@ -1,0 +1,216 @@
+/*
+ *
+ *  *
+ *  *  * Copyright (c) 2026
+ *  *  *
+ *  *  * Author: Athar Gul
+ *  *  * GitHub: https://github.com/DevAtrii/Kmp-Starter-Template
+ *  *  * YouTube: https://www.youtube.com/@devatrii/videos
+ *  *  *
+ *  *  * All rights reserved.
+ *  *
+ *  *
+ *
+ */
+
+package com.romeodev.safehomeapp.feature_purchases_presentation
+
+import androidx.lifecycle.viewModelScope
+import com.romeodev.safehomeapp.feature_purchases_domain.logics.PurchasesLogics
+import com.romeodev.safehomeapp.feature_purchases_domain.models.PaywallMetadata
+import com.romeodev.safehomeapp.ui_utils.viewmodels.MviViewModel
+import com.romeodev.safehomeapp.utils.intents.IntentUtils
+import com.romeodev.safehomeapp.utils.logging.Log
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+class PurchasesViewModel(
+    private val purchasesLogics: PurchasesLogics,
+    private val intentUtils: IntentUtils,
+) : MviViewModel<PurchasesState, PurchasesActions, PurchasesEvents>() {
+
+    companion object Companion {
+        private const val TAG = "PurchaseViewModel"
+    }
+
+
+    override val initialState: PurchasesState
+        get() = PurchasesState()
+
+
+    // jobs
+    private var startPurchaseJob: Job? = null
+    private var restorePurchasesJob: Job? = null
+    private var loadProductsJob: Job? = null
+    private var getPaywallMetadataJob: Job? = null
+    private var loadDiscountProductJob: Job? = null
+
+
+    private fun getPaywallMetadata() {
+        getPaywallMetadataJob?.cancel()
+        getPaywallMetadataJob = viewModelScope.launch {
+            purchasesLogics
+                .getPaywallMetadata()
+                .onSuccess { paywallMetadata: PaywallMetadata ->
+                    Log.i(TAG, "getPaywallMetadata: meta data loaded")
+                    _state.update {
+                        it.copy(
+                            paywallMetadata = paywallMetadata
+                        )
+                    }
+                }
+                .onFailure { err ->
+                    Log.e(
+                        TAG,
+                        "getPaywallMetadata: unable to load paywall meta data ${err.message}"
+                    )
+                }
+        }
+    }
+
+
+    override fun onAction(action: PurchasesActions) {
+        when (action) {
+            PurchasesActions.LoadProducts -> loadProducts()
+            PurchasesActions.RestorePurchases -> restorePurchases()
+            PurchasesActions.StartPurchase -> startPurchase()
+            is PurchasesActions.UpdateSelectedProduct -> _state.update {
+                it.copy(
+                    selectedProduct = action.product
+                )
+            }
+
+            is PurchasesActions.OnPrivacyPolicyClick -> viewModelScope.launch {
+                intentUtils.openUrl(
+                    url = action.url,
+                )
+            }
+
+            is PurchasesActions.OnTermsOfUseClick -> viewModelScope.launch {
+                intentUtils.openUrl(
+                    url = action.url,
+                )
+            }
+        }
+    }
+
+    private fun restorePurchases() {
+        restorePurchasesJob?.cancel()
+        restorePurchasesJob = viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    isRestoring = true
+                )
+            }
+            purchasesLogics
+                .restorePurchases()
+                .onSuccess { activeProducts ->
+                    _state.update {
+                        it.copy(
+                            activeProducts = activeProducts,
+                            isRestoring = false
+                        )
+                    }
+                }.onFailure { err ->
+                    _state.update {
+                        it.copy(
+                            isRestoring = false
+                        )
+                    }
+                    emitEvent(PurchasesEvents.OnRestoreFailure(exception = err))
+                }
+        }
+    }
+
+    private fun startPurchase() {
+        startPurchaseJob?.cancel()
+        startPurchaseJob = viewModelScope.launch {
+            val selectedProduct = _state.value.selectedProduct ?: return@launch
+            _state.update {
+                it.copy(
+                    isPurchasing = true
+                )
+            }
+            purchasesLogics.startPurchase(productId = selectedProduct.id)
+                .onSuccess { purchasedProduct ->
+                    _state.update {
+                        it.copy(
+                            activeProducts = it.activeProducts + purchasedProduct.product,
+                            isPurchased = true,
+                            isPurchasing = false
+                        )
+                    }
+                    emitEvent(
+                        PurchasesEvents.OnPurchaseSuccess(
+                            purchased = purchasedProduct
+                        )
+                    )
+                }.onFailure { err ->
+                    _state.update {
+                        it.copy(
+                            isPurchased = false,
+                            isPurchasing = false
+                        )
+                    }
+                    emitEvent(PurchasesEvents.OnPurchaseFailure(err, selectedProduct.id))
+                }
+        }
+    }
+
+    private fun loadDiscountProduct() {
+        loadDiscountProductJob?.cancel()
+        loadDiscountProductJob = viewModelScope.launch {
+            purchasesLogics.getDiscountProduct()
+                .onSuccess { product ->
+                    Log.i(TAG, "loadDiscountProduct: discountProduct loaded: $product")
+                    _state.update {
+                        it.copy(
+                            discountProduct = product.formatValues()
+                        )
+                    }
+                }.onFailure { err ->
+                    Log.e(
+                        TAG,
+                        "loadDiscountProduct: failed to load discount product: ${err.message}"
+                    )
+                }
+        }
+    }
+
+    private fun loadProducts() {
+        _state.update {
+            it.copy(
+                isLoading = true
+            )
+        }
+        loadProductsJob?.cancel()
+        loadProductsJob = viewModelScope.launch {
+            purchasesLogics.getProducts()
+                .onSuccess { products ->
+                    loadDiscountProduct()
+                    val formattedProducts = products.map {
+                        it.formatValues()
+                    }
+                    Log.i(TAG, "loadProducts: formatted Products: $formattedProducts")
+                    _state.update {
+                        it.copy(
+                            products = formattedProducts,
+                            isLoading = false,
+                            selectedProduct = formattedProducts.lastOrNull()
+                        )
+                    }
+                    getPaywallMetadata()
+                }.onFailure { err ->
+                    _state.update {
+                        it.copy(
+                            isLoading = false
+                        )
+                    }
+                    emitEvent(PurchasesEvents.OnProductsLoadFailure(err))
+                }
+        }
+    }
+
+
+}

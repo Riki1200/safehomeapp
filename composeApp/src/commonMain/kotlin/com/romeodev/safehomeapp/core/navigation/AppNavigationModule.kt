@@ -1,0 +1,146 @@
+/*
+ *
+ *  *
+ *  *  * Copyright (c) 2026
+ *  *  *
+ *  *  * Author: Athar Gul
+ *  *  * GitHub: https://github.com/DevAtrii/Kmp-Starter-Template
+ *  *  * YouTube: https://www.youtube.com/@devatrii/videos
+ *  *  *
+ *  *  * All rights reserved.
+ *  *
+ *  *
+ *
+ */
+
+package com.romeodev.safehomeapp.core.navigation
+
+import androidx.compose.runtime.rememberCoroutineScope
+import com.romeodev.safehomeapp.feature_analytics_domain.EventsTracker
+import com.romeodev.safehomeapp.feature_core_domain.AppEvents
+import com.romeodev.safehomeapp.feature_core_presentation.screens.OnboardingV1Screen
+import com.romeodev.safehomeapp.feature_core_presentation.screens.SplashScreen
+import com.romeodev.safehomeapp.feature_navigation.StarterNavigator
+import com.romeodev.safehomeapp.feature_navigation.di.navigationCoreModule
+import com.romeodev.safehomeapp.feature_purchases_presentation.ui.screens.PurchasesScreen
+import com.romeodev.safehomeapp.core.ui.screens.WelcomeScreen
+import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
+import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.dsl.module
+import org.koin.dsl.navigation3.navigation
+
+@OptIn(KoinExperimentalAPI::class)
+val appNavigationModule = module {
+    includes(navigationCoreModule)
+
+
+    navigation<AppScreens.Welcome> { route ->
+        val navigator = StarterNavigator.getCurrent()
+        WelcomeScreen(
+            onGetStartedClick = {
+                navigator.navigateTo(
+                    route = AppScreens.Purchases()
+                )
+            }
+        )
+    }
+
+    navigation<AppScreens.Splash> { route ->
+        val navigator = StarterNavigator.getCurrent()
+        SplashScreen(
+            onNavigate = {
+                navigator.popAndNavigate(
+                    route = AppScreens.Welcome
+                )
+            },
+            onNavigateToOnboarding = {
+                navigator.popAndNavigate(
+                    route = AppScreens.Onboarding
+                )
+            }
+        )
+    }
+    navigation<AppScreens.Onboarding> { route ->
+        val navigator = StarterNavigator.getCurrent()
+        OnboardingV1Screen(
+            onNavigate = {
+                navigator.popAndNavigate(
+                    route = AppScreens.Welcome
+                )
+            }
+        )
+    }
+
+    navigation<AppScreens.Purchases> { route ->
+        val navigator = StarterNavigator.getCurrent()
+        val eventsTracker: EventsTracker = koinInject()
+        val scope = rememberCoroutineScope()
+        PurchasesScreen(
+            paywall = starterDefaultPaywallV1(),
+            onNavigate = {
+                route.onNavigate.invoke(navigator)
+            },
+            onProductsLoadFailure = {
+                scope.launch {
+                    eventsTracker.track(
+                        event = AppEvents.OnPurchaseProductsLoadFailure(
+                            error = it.message ?: "--"
+                        )
+                    )
+                }
+            },
+            onPurchaseFailure = { err, id ->
+                scope.launch {
+                    eventsTracker.track(
+                        event = AppEvents.OnPurchaseFailure(
+                            error = err.message ?: "--",
+                            productId = id
+                        )
+                    )
+                }
+            },
+            onRestoreFailure = {
+                scope.launch {
+                    eventsTracker.track(
+                        event = AppEvents.OnPurchaseRestoreFailure(
+                            error = it.message ?: "--"
+                        )
+                    )
+                }
+            },
+            onPurchaseSuccess = { trx ->
+                scope.launch {
+                    eventsTracker.track(
+                        event = AppEvents.OnPurchaseSuccess(
+                            transactionId = trx.transactionId,
+                            value = trx.amount,
+                            currency = trx.currency,
+                            itemId = trx.product.id
+                        )
+                    )
+                }
+            },
+        )
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

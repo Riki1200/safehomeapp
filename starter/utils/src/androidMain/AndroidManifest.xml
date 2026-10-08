@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /*
+  ~  *
+  ~  *  * Copyright (c) 2026
+  ~  *  *
+  ~  *  * Author: Athar Gul
+  ~  *  * GitHub: https://github.com/DevAtrii/Kmp-Starter-Template
+  ~  *  * YouTube: https://www.youtube.com/@devatrii/videos
+  ~  *  *
+  ~  *  * All rights reserved.
+  ~  *
+  ~  *
+  ~  */
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.kmpstarter.utils.StarterApplicationProvider"
+                android:value="androidx.startup" />
+        </provider>
+
+    </application>
+
+</manifest>

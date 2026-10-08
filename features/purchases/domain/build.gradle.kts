@@ -1,0 +1,63 @@
+/*
+ *
+ *  *
+ *  *  * Copyright (c) 2026
+ *  *  *
+ *  *  * Author: Athar Gul
+ *  *  * GitHub: https://github.com/DevAtrii/Kmp-Starter-Template
+ *  *  * YouTube: https://www.youtube.com/@devatrii/videos
+ *  *  *
+ *  *  * All rights reserved.
+ *  *
+ *  *
+ *
+ */
+
+plugins {
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
+    alias(libs.plugins.kotlin.serialization)
+    id(libs.plugins.build.koin.core.get().pluginId)
+    id(libs.plugins.build.common.get().pluginId)
+}
+
+val packageName = "com.atriidev.feature_purchases_domain"
+val xcfName = "FeaturePurchasesDomainKit"
+
+
+kotlin {
+    android {
+        namespace = packageName
+        compileSdk {
+            version = release(libs.versions.android.compileSdk.get().toInt())
+        }
+        minSdk {
+            version = release(libs.versions.android.minSdk.get().toInt())
+        }
+    }
+
+    iosArm64()
+    iosSimulatorArm64()
+
+
+
+    listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
+        target.binaries.framework {
+            baseName = xcfName
+            freeCompilerArgs += "-Xbinary=bundleId=$packageName"
+        }
+    }
+
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.starter.core)
+        }
+
+        androidMain.dependencies {
+        }
+
+        iosMain.dependencies {
+        }
+    }
+}
