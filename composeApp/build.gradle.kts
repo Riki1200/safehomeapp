@@ -96,12 +96,41 @@ kotlin {
             implementation(projects.features.core.domain)
             implementation(projects.features.core.presentation)
 
-            // Feature Your Feature
+            implementation(projects.features.auth.data)
+            implementation(projects.features.auth.domain)
+            implementation(projects.features.auth.presentation)
 
+            implementation(projects.features.verification.data)
+            implementation(projects.features.verification.domain)
+            implementation(projects.features.verification.presentation)
+
+            implementation(projects.features.map.data)
+            implementation(projects.features.map.domain)
+            implementation(projects.features.map.presentation)
+
+            implementation(projects.features.appointments.data)
+            implementation(projects.features.appointments.domain)
+            implementation(projects.features.appointments.presentation)
+
+            implementation(projects.features.chat.data)
+            implementation(projects.features.chat.domain)
+            implementation(projects.features.chat.presentation)
+
+            implementation(projects.features.assistant.data)
+            implementation(projects.features.assistant.domain)
+            implementation(projects.features.assistant.presentation)
+
+            implementation(projects.features.owner.data)
+            implementation(projects.features.owner.domain)
+            implementation(projects.features.owner.presentation)
+
+            implementation(projects.features.profile.data)
+            implementation(projects.features.profile.domain)
+            implementation(projects.features.profile.presentation)
 
             implementation(projects.features.home.data)
-implementation(projects.features.home.domain)
-implementation(projects.features.home.presentation)
+            implementation(projects.features.home.domain)
+            implementation(projects.features.home.presentation)
 
 
         }

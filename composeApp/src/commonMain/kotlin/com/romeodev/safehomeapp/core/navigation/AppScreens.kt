@@ -1,18 +1,3 @@
-/*
- *
- *  *
- *  *  * Copyright (c) 2026
- *  *  *
- *  *  * Author: Athar Gul
- *  *  * GitHub: https://github.com/DevAtrii/Kmp-Starter-Template
- *  *  * YouTube: https://www.youtube.com/@devatrii/videos
- *  *  *
- *  *  * All rights reserved.
- *  *
- *  *
- *
- */
-
 package com.romeodev.safehomeapp.core.navigation
 
 import androidx.navigation3.runtime.NavKey
@@ -23,6 +8,67 @@ import kotlinx.serialization.Serializable
 sealed class AppScreens : NavKey {
     @Serializable
     data object Welcome : AppScreens()
+
+    @Serializable
+    data object SignIn : AppScreens()
+
+    @Serializable
+    data object SignUp : AppScreens()
+
+    @Serializable
+    data object VerificationStart : AppScreens()
+
+    @Serializable
+    data object IdCapture : AppScreens()
+
+    @Serializable
+    data object FaceScan : AppScreens()
+
+    @Serializable
+    data object VerificationSuccess : AppScreens()
+
+    @Serializable
+    data object MainRoot : AppScreens()
+
+    @Serializable
+    data object ExploreResults : AppScreens()
+
+    @Serializable
+    data class PropertyDetail(val propertyId: String) : AppScreens()
+
+    @Serializable
+    data class ConditionReport(val propertyId: String) : AppScreens()
+
+    @Serializable
+    data class TitleValidation(val propertyId: String) : AppScreens()
+
+    @Serializable
+    data class BookViewing(val propertyId: String) : AppScreens()
+
+    @Serializable
+    data class ViewingConfirmed(
+        val bookingCode: String,
+        val propertyTitle: String,
+        val dateTime: String
+    ) : AppScreens()
+
+    @Serializable
+    data class ChatConversation(val chatId: String) : AppScreens()
+
+    @Serializable
+    data class ReportScam(val targetId: String = "") : AppScreens()
+
+    @Serializable
+    data object PublishProperty : AppScreens()
+
+    @Serializable
+    data object InspectionSubmitted : AppScreens()
+
+    @Serializable
+    data class Offers(val propertyId: String = "") : AppScreens()
+
+    @Serializable
+    data object Language : AppScreens()
 
     @Serializable
     data object Splash : AppScreens()

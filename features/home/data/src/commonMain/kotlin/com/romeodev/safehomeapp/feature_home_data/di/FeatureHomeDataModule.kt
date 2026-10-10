@@ -15,8 +15,12 @@
 
 package com.romeodev.safehomeapp.feature_home_data.di
 
+import com.romeodev.safehomeapp.feature_home_data.repositories.HomeRepositoryImpl
+import com.romeodev.safehomeapp.feature_home_domain.repositories.HomeRepository
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val featureHomeDataModule = module {
-    // define your deps
+    singleOf(::HomeRepositoryImpl) bind HomeRepository::class
 }

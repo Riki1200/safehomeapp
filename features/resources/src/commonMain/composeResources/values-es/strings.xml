@@ -14,8 +14,36 @@
   -->
 
 <resources>
-    <string name="hello_kmp">Hola KMP de Atrii</string>
-    <string name="welcome_screen_title">KMP Starter!</string>
-    <string name="welcome_screen_subtitle">Escribe una vez, despliega en cualquier lugar</string>
-    <string name="welcome_screen_description">Una plantilla de Kotlin Multiplatform moderna y lista para producción, con diseño Material 3 y herramientas integrales.</string>
+    <!-- SafeHome Auth Strings (Spanish) -->
+    <string name="safehome_app_name">Safe Home</string>
+    <string name="safehome_welcome_subtitle">Viviendas inspeccionadas, propietarios verificados y visitas reservadas dentro de la app.</string>
+    <string name="safehome_feature_condition_report">Informe real del estado de cada hogar</string>
+    <string name="safehome_feature_kyc_validated">Título de propiedad y KYC validados</string>
+    <string name="safehome_feature_scam_reports">Reportes de estafa respondidos en menos de 24 h</string>
+    <string name="safehome_btn_create_account">Crear cuenta</string>
+    <string name="safehome_btn_already_have_account">Ya tengo una cuenta</string>
+
+    <string name="safehome_signin_title">Bienvenido de nuevo</string>
+    <string name="safehome_signin_subtitle">Inicia sesión con tu cuenta verificada.</string>
+    <string name="safehome_continue_with_apple">Continuar con Apple</string>
+    <string name="safehome_continue_with_google">Continuar con Google</string>
+    <string name="safehome_apple">Apple</string>
+    <string name="safehome_google">Google</string>
+    <string name="safehome_or_with_email">O CON CORREO</string>
+    <string name="safehome_email_label">Correo electrónico</string>
+    <string name="safehome_email_placeholder">tu@correo.com</string>
+    <string name="safehome_password_label">Contraseña</string>
+    <string name="safehome_password_placeholder">••••••••</string>
+    <string name="safehome_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="safehome_btn_sign_in">Iniciar sesión</string>
+    <string name="safehome_new_to_safehome">¿Nuevo en Safe Home? </string>
+
+    <string name="safehome_signup_title">Crea tu cuenta</string>
+    <string name="safehome_signup_subtitle">A continuación verificaremos tu identidad en menos de 2 minutos.</string>
+    <string name="safehome_fullname_label">Nombre completo (como en tu ID)</string>
+    <string name="safehome_fullname_placeholder">Andrea Salinas Ruiz</string>
+    <string name="safehome_password_signup_placeholder">Al menos 8 caracteres</string>
+    <string name="safehome_password_counter">Al menos 8 caracteres (%1$d/8)</string>
+    <string name="safehome_terms_notice">Acepto los términos y la política de privacidad. Mis datos de identidad solo se usan para verificación.</string>
+    <string name="safehome_btn_continue_verification">Continuar a verificación</string>
 </resources>

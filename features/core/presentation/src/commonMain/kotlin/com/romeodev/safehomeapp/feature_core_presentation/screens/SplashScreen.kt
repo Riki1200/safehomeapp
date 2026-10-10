@@ -23,7 +23,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -37,7 +37,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.romeodev.safehomeapp.feature_core_presentation.viewmodels.SplashEvents
 import com.romeodev.safehomeapp.feature_core_presentation.viewmodels.SplashViewModel
 import com.romeodev.safehomeapp.feature_resources.Res
-import com.romeodev.safehomeapp.feature_resources.compose_multiplatform
+import com.romeodev.safehomeapp.feature_resources.safehome_logo
 import com.romeodev.safehomeapp.ui_utils.side_effects.ObserveAsEvents
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -70,6 +70,9 @@ fun SplashScreen(
 }
 
 
+// Matches the native splash background (Android theme + iOS LaunchBackground)
+private val SplashBackground = Color(0xFF0A2540)
+
 @Composable
 fun SplashScreenContent(
     modifier: Modifier = Modifier,
@@ -94,14 +97,14 @@ fun SplashScreenContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)),
+            .background(SplashBackground),
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(Res.drawable.compose_multiplatform),
-            contentDescription = "Logo",
+            painter = painterResource(Res.drawable.safehome_logo),
+            contentDescription = "SafeHome logo",
             modifier = Modifier
-                .size(150.dp)
+                .size(200.dp)
                 .scale(scale.value)
                 .alpha(alpha.value)
         )

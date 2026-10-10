@@ -61,12 +61,22 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
+                implementation(libs.compose.material.icons.extended)
+                implementation(projects.starter.ui.components)
+                implementation(projects.starter.ui.utils)
                 implementation(projects.starter.ui.layouts)
                 implementation(projects.features.home.domain)
                 implementation(projects.features.core.presentation)
+                implementation(projects.features.map.presentation)
+                implementation(projects.features.appointments.presentation)
+                implementation(projects.features.chat.presentation)
+                implementation(projects.features.assistant.presentation)
+                implementation(projects.features.owner.presentation)
+                implementation(projects.features.profile.presentation)
                 implementation(projects.features.resources)
                 implementation(projects.features.navigation)
                 implementation(projects.features.analytics.domain)
+                implementation(projects.features.locale)
             }
         }
 

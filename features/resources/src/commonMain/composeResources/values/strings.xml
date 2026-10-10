@@ -17,6 +17,39 @@
     <string name="app_name">KMP Starter</string>
 
 
+    <!-- SafeHome Auth Strings -->
+    <string name="safehome_app_name">Safe Home</string>
+    <string name="safehome_welcome_subtitle">Inspected homes, verified owners and viewings booked inside the app.</string>
+    <string name="safehome_feature_condition_report">A real condition report for every home</string>
+    <string name="safehome_feature_kyc_validated">Property title and KYC validated</string>
+    <string name="safehome_feature_scam_reports">Scam reports answered within 24 h</string>
+    <string name="safehome_btn_create_account">Create account</string>
+    <string name="safehome_btn_already_have_account">I already have an account</string>
+
+    <string name="safehome_signin_title">Welcome back</string>
+    <string name="safehome_signin_subtitle">Sign in with your verified account.</string>
+    <string name="safehome_continue_with_apple">Continue with Apple</string>
+    <string name="safehome_continue_with_google">Continue with Google</string>
+    <string name="safehome_apple">Apple</string>
+    <string name="safehome_google">Google</string>
+    <string name="safehome_or_with_email">OR WITH EMAIL</string>
+    <string name="safehome_email_label">Email</string>
+    <string name="safehome_email_placeholder">you@email.com</string>
+    <string name="safehome_password_label">Password</string>
+    <string name="safehome_password_placeholder">••••••••</string>
+    <string name="safehome_forgot_password">Forgot your password?</string>
+    <string name="safehome_btn_sign_in">Sign in</string>
+    <string name="safehome_new_to_safehome">New to Safe Home? </string>
+
+    <string name="safehome_signup_title">Create your account</string>
+    <string name="safehome_signup_subtitle">Next we’ll verify your identity in under 2 minutes.</string>
+    <string name="safehome_fullname_label">Full name (as on your ID)</string>
+    <string name="safehome_fullname_placeholder">Andrea Salinas Ruiz</string>
+    <string name="safehome_password_signup_placeholder">At least 8 characters</string>
+    <string name="safehome_password_counter">At least 8 characters (%1$d/8)</string>
+    <string name="safehome_terms_notice">I accept the terms and privacy notice. My identity data is used only for verification.</string>
+    <string name="safehome_btn_continue_verification">Continue to verification</string>
+
     <!-- ============================================================ -->
     <!-- ===============  STARTER STRINGS SECTION  ================== -->
     <!-- ============================================================ -->

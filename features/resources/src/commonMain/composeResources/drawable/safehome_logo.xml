@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SafeHome shield logo (from store_design/icon/safehome-icon-master.svg), cropped to the shape -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="700"
+    android:viewportHeight="700">
+    <group
+        android:translateX="-162"
+        android:translateY="-169">
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M512,200 L752,372 L752,560 C752,694 648,784 512,838 C376,784 272,694 272,560 L272,372 Z"
+            android:strokeColor="#FFFFFF"
+            android:strokeLineJoin="round"
+            android:strokeWidth="28" />
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M670,262 H706 A10,10 0 0 1 716,272 V348 A10,10 0 0 1 706,358 H670 A10,10 0 0 1 660,348 V272 A10,10 0 0 1 670,262 Z" />
+        <path
+            android:pathData="M404,546 L482,622 L628,462"
+            android:strokeColor="#0E8C72"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="66" />
+        <path
+            android:fillColor="#F5B841"
+            android:pathData="M490,330 A22,22 0 1 0 534,330 A22,22 0 1 0 490,330 Z" />
+    </group>
+</vector>

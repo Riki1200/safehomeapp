@@ -1,18 +1,3 @@
-/*
- *
- *  *
- *  *  * Copyright (c) 2026
- *  *  *
- *  *  * Author: Athar Gul
- *  *  * GitHub: https://github.com/DevAtrii/Kmp-Starter-Template
- *  *  * YouTube: https://www.youtube.com/@devatrii/videos
- *  *  *
- *  *  * All rights reserved.
- *  *
- *  *
- *
- */
-
 package com.romeodev.safehomeapp.core.di
 
 import com.romeodev.safehomeapp.core.datastore.di.dataStoreModule
@@ -31,6 +16,30 @@ import com.romeodev.safehomeapp.feature_purchases_domain.di.purchasesDomainModul
 import com.romeodev.safehomeapp.feature_purchases_presentation.di.purchasesPresentationModule
 import com.romeodev.safehomeapp.feature_remote_config_data.di.remoteConfigDataModule
 import com.romeodev.safehomeapp.feature_remote_config_domain.di.remoteConfigDomainModule
+import com.romeodev.safehomeapp.feature_auth_data.di.authDataModule
+import com.romeodev.safehomeapp.feature_auth_domain.di.authDomainModule
+import com.romeodev.safehomeapp.feature_auth_presentation.di.authPresentationModule
+import com.romeodev.safehomeapp.feature_verification_data.di.verificationDataModule
+import com.romeodev.safehomeapp.feature_verification_domain.di.verificationDomainModule
+import com.romeodev.safehomeapp.feature_verification_presentation.di.verificationPresentationModule
+import com.romeodev.safehomeapp.feature_map_data.di.mapDataModule
+import com.romeodev.safehomeapp.feature_map_domain.di.mapDomainModule
+import com.romeodev.safehomeapp.feature_map_presentation.di.mapPresentationModule
+import com.romeodev.safehomeapp.feature_appointments_data.di.appointmentsDataModule
+import com.romeodev.safehomeapp.feature_appointments_domain.di.appointmentsDomainModule
+import com.romeodev.safehomeapp.feature_appointments_presentation.di.appointmentsPresentationModule
+import com.romeodev.safehomeapp.feature_chat_data.di.chatDataModule
+import com.romeodev.safehomeapp.feature_chat_domain.di.chatDomainModule
+import com.romeodev.safehomeapp.feature_chat_presentation.di.chatPresentationModule
+import com.romeodev.safehomeapp.feature_assistant_data.di.assistantDataModule
+import com.romeodev.safehomeapp.feature_assistant_domain.di.assistantDomainModule
+import com.romeodev.safehomeapp.feature_assistant_presentation.di.assistantPresentationModule
+import com.romeodev.safehomeapp.feature_owner_data.di.ownerDataModule
+import com.romeodev.safehomeapp.feature_owner_domain.di.ownerDomainModule
+import com.romeodev.safehomeapp.feature_owner_presentation.di.ownerPresentationModule
+import com.romeodev.safehomeapp.feature_profile_data.di.profileDataModule
+import com.romeodev.safehomeapp.feature_profile_domain.di.profileDomainModule
+import com.romeodev.safehomeapp.feature_profile_presentation.di.profilePresentationModule
 import com.romeodev.safehomeapp.feature_home_data.di.featureHomeDataModule
 import com.romeodev.safehomeapp.feature_home_domain.di.featureHomeDomainModule
 import com.romeodev.safehomeapp.feature_home_presentation.di.featureHomePresentationModule
@@ -82,29 +91,34 @@ internal fun initKoin(config: KoinAppDeclaration? = null) {
         modules(
             starterModules,
             kmpAppInitializerModule,
-            /* Add Modules Here */
+            /* Feature Modules */
+            authDataModule,
+            authDomainModule,
+            authPresentationModule,
+            verificationDataModule,
+            verificationDomainModule,
+            verificationPresentationModule,
+            mapDataModule,
+            mapDomainModule,
+            mapPresentationModule,
+            appointmentsDataModule,
+            appointmentsDomainModule,
+            appointmentsPresentationModule,
+            chatDataModule,
+            chatDomainModule,
+            chatPresentationModule,
+            assistantDataModule,
+            assistantDomainModule,
+            assistantPresentationModule,
+            ownerDataModule,
+            ownerDomainModule,
+            ownerPresentationModule,
+            profileDataModule,
+            profileDomainModule,
+            profilePresentationModule,
             featureHomeDataModule,
             featureHomeDomainModule,
             featureHomePresentationModule
         )
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
